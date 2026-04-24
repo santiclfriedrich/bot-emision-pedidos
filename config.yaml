@@ -1,0 +1,74 @@
+# Configuración de facturación automática
+# =========================================
+
+gbp:
+  # Timeout general en segundos para esperas de navegación
+  timeout: 30
+
+  # Timeout largo para operaciones que tardan (carga de grillas, etc.)
+  timeout_largo: 300
+
+  # Perfil requerido para facturación (debe coincidir con el texto del dropdown)
+  perfil: "04-Administrativos"
+
+  # Correr en modo visible para debug (true) o headless (false)
+  headless: false
+
+  # Sección del menú donde está facturación.
+  # Completar con los IDs del TreeView una vez identificados.
+  menu_facturacion:
+    nodos: []
+
+# Logísticas soportadas. Cada una genera un botón en la UI.
+# - habilitada: false → botón deshabilitado (tooltip con "nota")
+# - transporte vacío → la logística NO puede ejecutarse hasta inspeccionar el valor
+logisticas:
+  enviopack:
+    label: "EnvioPack"
+    habilitada: true
+    nota: ""
+    filtros:
+      tipo_pedido: "50"      # OK PARA EMISIÓN
+      percepciones: "0"      # No
+      vendedor: "9"          # Ventas Web
+      transporte: "77"       # EnvioPack
+
+  zippin_tiendas:
+    label: "Zippin Tiendas"
+    habilitada: false
+    nota: "Próximamente — falta inspección del value de transporte."
+    filtros:
+      tipo_pedido: "50"
+      percepciones: "0"
+      vendedor: "9"
+      transporte: ""
+
+  tml_tiendas:
+    label: "TML Tiendas"
+    habilitada: false
+    nota: "Próximamente — falta inspección del value de transporte."
+    filtros:
+      tipo_pedido: "50"
+      percepciones: "0"
+      vendedor: "9"
+      transporte: ""
+
+  enviame_oncity:
+    label: "Enviame OnCity"
+    habilitada: false
+    nota: "Próximamente — falta inspección del value de transporte."
+    filtros:
+      tipo_pedido: "50"
+      percepciones: "0"
+      vendedor: "9"
+      transporte: ""
+
+  ambaflex:
+    label: "AMBAFLEX"
+    habilitada: false
+    nota: "Próximamente — falta inspección de filtros (Mercado Libre)."
+    filtros:
+      tipo_pedido: ""
+      percepciones: ""
+      vendedor: ""
+      transporte: ""

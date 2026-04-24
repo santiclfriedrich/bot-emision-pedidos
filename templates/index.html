@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Facturación Automática</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Facturación Automática</h1>
+    <p class="subtitle">Seleccioná la logística para emitir facturas.</p>
+  </header>
+
+  <main>
+    <section class="botones">
+      {% for l in logisticas %}
+        <button
+          class="btn-logistica"
+          data-logistica="{{ l.id }}"
+          {% if not l.enabled %}disabled title="{{ l.nota }}"{% endif %}>
+          <span class="label">{{ l.label }}</span>
+          {% if not l.enabled %}<span class="nota">{{ l.nota }}</span>{% endif %}
+        </button>
+      {% endfor %}
+    </section>
+
+    <section class="estado">
+      <div id="estado-actual">Sin ejecución activa.</div>
+    </section>
+
+    <section class="logs">
+      <div class="logs-header">
+        <h2>Logs en vivo</h2>
+        <button id="btn-limpiar" type="button">Limpiar</button>
+      </div>
+      <pre id="log-output" aria-live="polite"></pre>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
