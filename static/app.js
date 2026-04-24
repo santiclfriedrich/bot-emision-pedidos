@@ -13,8 +13,23 @@
     if (clase) estadoWrap.classList.add(clase);
   }
 
+  function clasificarLog(linea) {
+    if (/\b(ERROR|CRITICAL|FATAL|Traceback|Exception)\b/i.test(linea)) return "log-error";
+    if (/\b(WARN|WARNING)\b/i.test(linea)) return "log-warn";
+    if (/\b(DEBUG)\b/i.test(linea)) return "log-debug";
+    if (/(✓|OK|Completado|exitos|success)/i.test(linea)) return "log-success";
+    return "log-info";
+  }
+
   function agregarLog(linea) {
-    logOut.textContent += linea + "\n";
+    const texto = linea.replace(/\\n/g, "\n");
+    texto.split("\n").forEach((sub) => {
+      if (sub === "" && texto.length > 0) return;
+      const span = document.createElement("span");
+      span.className = "log-line " + clasificarLog(sub);
+      span.textContent = sub + "\n";
+      logOut.appendChild(span);
+    });
     logOut.scrollTop = logOut.scrollHeight;
   }
 

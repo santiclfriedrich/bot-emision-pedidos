@@ -1,119 +1,399 @@
+:root {
+  --bg-0: #070a14;
+  --bg-1: #0d1324;
+  --bg-2: #121a30;
+  --bg-card: rgba(22, 30, 52, 0.65);
+  --bg-card-hover: rgba(30, 40, 68, 0.75);
+  --border: rgba(110, 130, 200, 0.18);
+  --border-strong: rgba(150, 170, 240, 0.35);
+  --text: #e8ecf5;
+  --text-dim: #8b93a7;
+  --text-muted: #5a6078;
+
+  --accent-primary: #6366f1;
+  --accent-success: #22c55e;
+  --accent-error: #ef4444;
+  --accent-warn: #f59e0b;
+  --accent-info: #38bdf8;
+
+  /* Colores por logística */
+  --col-enviopack: #8b5cf6;
+  --col-zippin: #f97316;
+  --col-tml: #06b6d4;
+  --col-enviame: #ec4899;
+  --col-ambaflex: #eab308;
+  --col-default: #6366f1;
+}
+
 * { box-sizing: border-box; }
 
+html, body { height: 100%; }
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
-  background: #f4f5f7;
-  color: #1f2328;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg-0);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99, 102, 241, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(236, 72, 153, 0.08), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(6, 182, 212, 0.08), transparent 70%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* --------------------------------------------------------------------- */
+/* Header                                                                 */
+/* --------------------------------------------------------------------- */
 header {
-  background: #24292f;
-  color: #fff;
-  padding: 1.5rem 2rem;
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(13, 19, 36, 0.85), rgba(13, 19, 36, 0.4)),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.12), rgba(236, 72, 153, 0.05));
+  backdrop-filter: blur(12px);
 }
-header h1 { margin: 0; font-size: 1.5rem; }
-.subtitle { margin: 0.25rem 0 0; opacity: 0.8; font-size: 0.95rem; }
 
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-primary), #8b5cf6);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px -6px rgba(99, 102, 241, 0.55);
+  flex-shrink: 0;
+}
+.header-icon svg { width: 26px; height: 26px; color: #fff; }
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  background: linear-gradient(90deg, #fff, #c7d0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------- */
+/* Main                                                                   */
+/* --------------------------------------------------------------------- */
 main {
   max-width: 960px;
   margin: 2rem auto;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 3rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
+.section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0 0 0.6rem 0.25rem;
+}
+
+/* --------------------------------------------------------------------- */
+/* Botones de logística                                                   */
+/* --------------------------------------------------------------------- */
 .botones {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
-  flex-wrap: wrap;
 }
 
 .btn-logistica {
-  flex: 1 1 200px;
-  min-height: 90px;
-  border: 1px solid #d0d7de;
-  border-radius: 8px;
-  background: #fff;
-  padding: 1rem 1.25rem;
-  font-size: 1.1rem;
+  --color: var(--col-default);
+  position: relative;
+  min-height: 104px;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1.05rem;
   font-weight: 600;
+  text-align: left;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, transform 0.05s;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.08s,
+    box-shadow 0.2s;
 }
+
+.btn-logistica::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color), transparent 60%);
+  opacity: 0.08;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.btn-logistica::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--color);
+  opacity: 0.7;
+}
+
 .btn-logistica:hover:not(:disabled) {
-  background: #f6f8fa;
-  border-color: #0969da;
+  background: var(--bg-card-hover);
+  border-color: var(--color);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color) 55%, transparent);
+  transform: translateY(-1px);
 }
+.btn-logistica:hover:not(:disabled)::before {
+  opacity: 0.18;
+}
+
 .btn-logistica:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
+
 .btn-logistica:disabled {
   cursor: not-allowed;
-  opacity: 0.55;
-  background: #f6f8fa;
+  opacity: 0.45;
+  filter: saturate(0.4);
 }
+
+.btn-logistica .label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
 .btn-logistica .nota {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 400;
-  color: #656d76;
+  color: var(--text-dim);
+  line-height: 1.35;
 }
+
 .btn-logistica.corriendo {
-  background: #ddf4ff;
-  border-color: #0969da;
+  border-color: var(--color);
+  background: var(--bg-card-hover);
+  animation: pulse-glow 1.8s ease-in-out infinite;
+}
+.btn-logistica.corriendo::before { opacity: 0.28; }
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 color-mix(in srgb, var(--color) 50%, transparent),
+      0 0 24px -4px color-mix(in srgb, var(--color) 60%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--color) 0%, transparent),
+      0 0 40px -4px color-mix(in srgb, var(--color) 80%, transparent);
+  }
 }
 
+/* Colores específicos por logística */
+.btn-logistica[data-logistica="enviopack"]       { --color: var(--col-enviopack); }
+.btn-logistica[data-logistica="zippin_tiendas"]  { --color: var(--col-zippin); }
+.btn-logistica[data-logistica="tml_tiendas"]     { --color: var(--col-tml); }
+.btn-logistica[data-logistica="enviame_oncity"]  { --color: var(--col-enviame); }
+.btn-logistica[data-logistica="ambaflex"]        { --color: var(--col-ambaflex); }
+
+/* --------------------------------------------------------------------- */
+/* Estado                                                                 */
+/* --------------------------------------------------------------------- */
 .estado {
-  background: #fff;
-  border: 1px solid #d0d7de;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  font-size: 0.95rem;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem 0.9rem 2.6rem;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s, color 0.2s;
 }
-.estado.ok { border-color: #1a7f37; background: #dafbe1; }
-.estado.error { border-color: #cf222e; background: #ffebe9; }
-.estado.running { border-color: #0969da; background: #ddf4ff; }
+.estado::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--text-muted) 25%, transparent);
+}
+.estado.running {
+  border-color: color-mix(in srgb, var(--accent-info) 45%, var(--border));
+  color: var(--text);
+}
+.estado.running::before {
+  background: var(--accent-info);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-info) 30%, transparent);
+  animation: dot-pulse 1.3s ease-in-out infinite;
+}
+.estado.ok {
+  border-color: color-mix(in srgb, var(--accent-success) 45%, var(--border));
+  color: var(--text);
+}
+.estado.ok::before {
+  background: var(--accent-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-success) 30%, transparent);
+}
+.estado.error {
+  border-color: color-mix(in srgb, var(--accent-error) 50%, var(--border));
+  color: var(--text);
+}
+.estado.error::before {
+  background: var(--accent-error);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-error) 30%, transparent);
+}
 
-.logs {
-  background: #0d1117;
-  border-radius: 8px;
-  padding: 1rem;
-  color: #e6edf3;
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-info) 30%, transparent); }
+  50%      { box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent-info) 0%, transparent); }
 }
+
+/* --------------------------------------------------------------------- */
+/* Logs                                                                   */
+/* --------------------------------------------------------------------- */
+.logs {
+  background: linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(5, 8, 18, 0.95));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.5);
+}
+
 .logs-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
 }
 .logs-header h2 {
   margin: 0;
-  font-size: 1rem;
-  color: #e6edf3;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
+.logs-header h2::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-success);
+  box-shadow: 0 0 8px var(--accent-success);
+  animation: dot-pulse-soft 2s ease-in-out infinite;
+}
+@keyframes dot-pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
 .logs-header button {
-  background: #21262d;
-  color: #e6edf3;
-  border: 1px solid #30363d;
-  border-radius: 4px;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  font-family: inherit;
   cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.logs-header button:hover { background: #30363d; }
+.logs-header button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
 
 #log-output {
   margin: 0;
+  padding: 1rem 1.1rem;
   max-height: 60vh;
   overflow-y: auto;
-  font-family: "SF Mono", Consolas, Menlo, monospace;
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-family: "JetBrains Mono", "SF Mono", Consolas, Menlo, monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
   white-space: pre-wrap;
   word-break: break-word;
+  color: #c9d1d9;
+}
+
+#log-output .log-line {
+  display: block;
+  padding: 0 0 0 0.6rem;
+  border-left: 2px solid transparent;
+  transition: background 0.1s;
+}
+#log-output .log-line.log-info    { border-left-color: var(--accent-info); }
+#log-output .log-line.log-warn    { border-left-color: var(--accent-warn);    color: #fde68a; }
+#log-output .log-line.log-error   { border-left-color: var(--accent-error);   color: #fca5a5; background: rgba(239, 68, 68, 0.06); }
+#log-output .log-line.log-success { border-left-color: var(--accent-success); color: #86efac; }
+#log-output .log-line.log-debug   { border-left-color: var(--text-muted);     color: var(--text-muted); opacity: 0.85; }
+
+/* Scrollbar custom */
+#log-output::-webkit-scrollbar { width: 10px; }
+#log-output::-webkit-scrollbar-track { background: transparent; }
+#log-output::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+#log-output::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* --------------------------------------------------------------------- */
+/* Responsive                                                             */
+/* --------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  header { padding: 1.5rem 1.25rem 1.25rem; }
+  main   { padding: 0 1rem 2rem; margin-top: 1.5rem; }
+  .header-icon { width: 40px; height: 40px; }
+  .header-icon svg { width: 22px; height: 22px; }
+  header h1 { font-size: 1.25rem; }
+  .botones { grid-template-columns: 1fr; }
 }
